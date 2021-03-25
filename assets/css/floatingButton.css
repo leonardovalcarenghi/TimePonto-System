@@ -1,0 +1,134 @@
+.floating-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+}
+
+.floating-button.mini {
+    bottom: 37px;
+    right: 115px;
+
+}
+
+.floating-button button {
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    /* background-color: #cb60b3; */
+    border: none;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
+    font-size: 24px;
+    color: white;
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    transition: .2s ease-out;
+}
+
+.floating-button.mini button{
+    width: 50px;
+    height: 50px;
+    font-size: 19px;
+}
+
+.floating-button button i {
+    margin: 0;
+    padding: 0;
+    transition-duration: .4s;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+}
+
+.floating-button button:not(:disabled):hover i {
+    transform: translate(-50%, -50%) rotate(15deg);
+}
+
+.floating-button button:focus {
+    outline: none;
+}
+
+.floating-button button.main {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    /* background-color: #5b19b7; */
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+}
+
+.floating-button button.main:before {
+    /* content: '⏚'; */
+}
+
+.floating-button ul {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0;
+    padding-right: 5px;
+    margin: 0;
+    list-style: none;
+    z-index: 10;
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    transition: .2s ease-out;
+}
+
+.floating-button ul li {
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    margin-bottom: -10%;
+    opacity: 0;
+    -webkit-transition: .3s ease-out;
+    -moz-transition: .3s ease-out;
+    transition: .3s ease-out;
+}
+
+.floating-button ul li label {
+    margin-right: 10px;
+    white-space: nowrap;
+    display: block;
+    margin-top: 10px;
+    padding: 5px 8px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+    border-radius: 3px;
+    height: 18px;
+    font-size: 16px;
+    pointer-events: none;
+    opacity: 0;
+    -webkit-transition: .2s ease-out;
+    -moz-transition: .2s ease-out;
+    transition: .2s ease-out;
+}
+
+.floating-button button.main:active, .floating-button button.main:focus {
+    outline: none;
+    background-color: #7716ff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .5);
+}
+
+.floating-button button.main:active:before, .floating-button button.main:focus:before {
+    /* content: '↑'; */
+}
+
+.floating-button button.main:active+ul, .floating-button button.main:focus+ul {
+    bottom: 70px;
+}
+
+.floating-button button.main:active+ul li, .floating-button button.main:focus+ul li {
+    margin-bottom: 10px;
+    opacity: 1;
+}
+
+.floating-button button.main:active+ul li:hover label, .floating-button button.main:focus+ul li:hover label {
+    opacity: 1;
+}

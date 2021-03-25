@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>TimePonto System</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="./assets/vendor/font-awesome/css/pro.css">
+
+    <!-- Application Style -->
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/floatingButton.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Barra de Navegação -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="NavBar">
+        <a class="navbar-brand" href="#">TimePonto System</a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mr-3">
+                <!-- <li class="nav-item active">
+                    <a class="nav-link" href="#">Início <span class="sr-only">(current)</span></a>
+                </li> -->
+                <!-- <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li> -->
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+    <!-- Banner de Boas Vindas -->
+    <div class="container-fluid" id="WelcomeBanner">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="jumbotron">
+                    <h1 class="display-4">Bem-vindo(a) ao TimePonto System!</h1>
+                    <p class="lead">
+                        O seu sistema de controle de ponto.
+                    </p>
+                    <hr class="my-4">
+                    <p>
+                        Para começar, clique em <b>Acessar Sistema</b>.
+                    </p>
+                    <p class="lead">
+                        <button class="btn btn-primary my-2 my-sm-0" type="button" data-target="#LoginModal"
+                            data-toggle="modal">Acessar Sistema</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="container" id="MainContent" style="display: none;">
+
+        <!-- Botão Flutuante - Inserir Hora -->
+        <div class="floating-button">
+            <button type="button" class="btn btn-primary" tooltip="true" data-placement="left" title="Inserir Hora"
+                data-target="#InsertModal" data-toggle="modal">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+
+        <!-- Banner de Identificação do Usuário -->
+        <div class="row" id="UserBanner">
+            <div class="col-lg-12">
+                <div class="jumbotron">
+                    <h5>Olá, Leonardo!</h5>
+                    <p class="lead">
+                        <strong>Perfil:</strong>
+                        <span>Trabalhador</span>
+                    </p>
+                    <button class="btn btn-outline-secondary" data-target="#SelectProfileModal" data-toggle="modal"
+                        tooltip="true" data-placement="left" title="Alterar perfil do usuário">Alterar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros -->
+        <div class="row" id="FiltersPanel">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Data Início:</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Data Final:</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Justificativa:</label>
+                                    <select class="form-control">
+                                        <option>Versionamento</option>
+                                        <option>Capacitação</option>
+                                        <option>Empréstimo</option>
+                                        <option>Prod. Conteúdo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary float-right" type="button">
+                            <i class="fas fa-search"></i>
+                            Consultar
+                        </button>
+                        <button class="btn btn-secondary float-right mr-2" type="button">
+                            <i class="fas fa-eraser mr-2"></i>
+                            Limpar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista -->
+        <div class="row mt-5" id="ListPanel">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <table
+                                    class="table table-bordered table-center table-striped table-pointer text-center mb-0">
+                                    <thead class="two-lines">
+                                        <tr>
+                                            <th rowspan="2" style="padding-bottom: 20px;">Data</th>
+                                            <th colspan="2" style="padding: 5px; font-size: 12px;">Batidas</th>
+                                            <th rowspan="2" style="padding-bottom: 20px;">Total Horas</th>
+                                            <th rowspan="2" style="padding-bottom: 20px;">Justificativa</th>
+                                            <th rowspan="2"></th>
+                                        </tr>
+                                        <tr>
+                                            <th>Entrada</th>
+                                            <th>Saída</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>10/03/2021</td>
+                                            <td>08:00</td>
+                                            <td>12:00</td>
+                                            <td>4</td>
+                                            <td>Versionamento</td>
+                                            <td class="td-options">
+                                                <i class="fas fa-circle" name="circle"></i>
+                                                <i class="fas fa-circle" name="circle"></i>
+                                                <i class="fas fa-pen" name="edit" tooltip="true" data-placement="left"
+                                                    title="Editar"></i>
+                                                <i class="fas fa-trash-alt" name="delete" tooltip="true"
+                                                    data-placement="right" title="Excluir"></i>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>10/03/2021</td>
+                                            <td>13:00</td>
+                                            <td>17:00</td>
+                                            <td>4</td>
+                                            <td>Produção</td>
+                                            <td class="td-options">
+                                                <i class="fas fa-circle" name="circle"></i>
+                                                <i class="fas fa-circle" name="circle"></i>
+                                                <i class="fas fa-pen" name="edit" tooltip="true" data-placement="left"
+                                                    title="Editar"></i>
+                                                <i class="fas fa-trash-alt" name="delete" tooltip="true"
+                                                    data-placement="right" title="Excluir"></i>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>11/03/2021</td>
+                                            <td>10:00</td>
+                                            <td>12:00</td>
+                                            <td>2</td>
+                                            <td>Capacitação</td>
+                                            <td class="td-options">
+                                                <i class="fas fa-circle" name="circle"></i>
+                                                <i class="fas fa-circle" name="circle"></i>
+                                                <i class="fas fa-pen" name="edit" tooltip="true" data-placement="left"
+                                                    title="Editar"></i>
+                                                <i class="fas fa-trash-alt" name="delete" tooltip="true"
+                                                    data-placement="right" title="Excluir"></i>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>11/03/2021</td>
+                                            <td>13:00</td>
+                                            <td>18:00</td>
+                                            <td>5</td>
+                                            <td>Produção</td>
+                                            <td class="td-options">
+                                                <i class="fas fa-circle" name="circle"></i>
+                                                <i class="fas fa-circle" name="circle"></i>
+                                                <i class="fas fa-pen" name="edit" tooltip="true" data-placement="left"
+                                                    title="Editar"></i>
+                                                <i class="fas fa-trash-alt" name="delete" tooltip="true"
+                                                    data-placement="right" title="Excluir"></i>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Opções -->
+        <div class="row mt-5" id="OptionsPanel">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <p class="status">
+                                    <small class="font-weight-bold">Status</small>
+                                    <span>Encaminhada para o Coordenador de Curso.</span>
+                                </p>
+                            </div>
+
+                            <div class=" col-lg-6 d-flex">
+                                <button type="button" class="btn btn-outline-secondary ml-auto mr-2">
+                                    <i class="fas fa-print mr-1"></i>
+                                    Imprimir
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary mr-2">
+                                    <i class="fas fa-file-excel mr-1"></i>
+                                    Exportar (Excel)
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary">
+                                    <i class="fas fa-file-pdf mr-1"></i>
+                                    Exportar (PDF)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- Modal: Login do Usuário -->
+    <div id="LoginModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Acessar Sistema</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+
+                        <!-- E-mail -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-at"></i>
+                                            </div>
+                                        </div>
+                                        <input type="email" class="form-control" name="UserEmail"
+                                            placeholder="Digite seu e-mail ..">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Senha -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Senha</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-key"></i>
+                                            </div>
+                                        </div>
+                                        <input type="password" class="form-control" name="UserPassword"
+                                            placeholder="Informe sua senha ..">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Opções -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <a class="btn-link btn-block" href="javascript:;">
+                                        <i class="fas fa-user-plus"></i>
+                                        Criar um cadastro
+                                    </a>
+                                    <a class="btn-link btn-block" href="javascript:;">
+                                        <i class="fas fa-key"></i>
+                                        Esqueci minha senha
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-block" name="login" onclick="Login()">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Entrar</span>
+                    </button>
+
+                    <button type="button" class="btn btn-light" data-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Fechar
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Selecionar Perfil -->
+    <div id="SelectProfileModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Selecionar Perfil</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+
+                        <!-- Perfil -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Perfis disponíveis:</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user-cog"></i>
+                                            </div>
+                                        </div>
+                                        <select class="form-control">
+                                            <option>Trabalhador</option>
+                                            <option>Coordenador de Curso</option>
+                                            <option>Estudante de TI</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Selecionar
+                    </button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Inserir Hora -->
+    <div id="InsertModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Inserir Hora</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+
+                        <!-- Data -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>*Data:</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </div>
+                                        </div>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Justificativa -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>*Justificativa:</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-quote-left"></i>
+                                            </div>
+                                        </div>
+                                        <select class="form-control">
+                                            <option>Versionamento</option>
+                                            <option>Capacitação</option>
+                                            <option>Empréstimo</option>
+                                            <option>Prod. Conteúdo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+
+
+                        <div class="row">
+
+                            <!-- Hora Entrada -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>*Entrada:</label>
+
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="far fa-clock"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" mask="00:00" placeholder="00:00">
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <!-- Hora Saída -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>*Saída:</label>
+
+
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="far fa-clock"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" mask="00:00" placeholder="00:00">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Opções -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>* Campos obrigatórios.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-check"></i>
+                        Registrar e Enviar para Análise
+                    </button>
+
+                    <button type="button" class="btn btn-light" data-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Editar Hora -->
+    <div id="EditModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Editar Hora</h6>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+
+                        <!-- Data -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>*Data:</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-calendar-alt"></i>
+                                            </div>
+                                        </div>
+                                        <input type="date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Justificativa -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>*Justificativa:</label>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-quote-left"></i>
+                                            </div>
+                                        </div>
+                                        <select class="form-control">
+                                            <option>Versionamento</option>
+                                            <option>Capacitação</option>
+                                            <option>Empréstimo</option>
+                                            <option>Prod. Conteúdo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+
+
+                        <div class="row">
+
+                            <!-- Hora Entrada -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>*Entrada:</label>
+
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="far fa-clock"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" mask="00:00" placeholder="00:00">
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <!-- Hora Saída -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>*Saída:</label>
+
+
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="far fa-clock"></i>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" mask="00:00" placeholder="00:00">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Opções -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <p>* Campos obrigatórios.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Salvar
+                    </button>
+
+                    <button type="button" class="btn btn-light" data-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Excluir Hora -->
+    <div id="DeleteModal" class="modal fade" tabindex="-1" role="dialog">
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header border-bottom-0">
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <i class="fas fa-trash-alt fa-5x"></i>
+                            </div>
+
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label class="font-weight-bold mb-0">Confirmar exclusão do registo</label>
+                                    <p class="small">Tem certeza que deseja excluir esse registro?</p>
+                                </div>
+                                <div class="form-group ml-3">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Confirmo a exclusão</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" style="width: 130px;" disabled>
+                        <i class="fas fa-trash"></i>
+                        Excluir
+                    </button>
+
+                    <button type="button" class="btn btn-light" style="width: auto;" data-dismiss="modal">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Vender Application -->
+    <script src="./assets/vendor/jquery/jquery.min.js"></script>
+    <script src="./assets/vendor/jquery/mask.js"></script>
+    <script src="./assets/vendor/jquery/toaster.js"></script>
+
+
+    <!-- Scripts Aplication -->
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+
+</body>
+
+</html>
