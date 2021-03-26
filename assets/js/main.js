@@ -28,6 +28,18 @@
 
     })()
 
+    //
+    // Desabilitar consoles.
+    //
+
+    'use strict'
+    var DisableConsoles = (f => {
+        console.log = function () { return 'console desabilitado.' }
+        console.warn = function () { return 'console desabilitado.' }
+        console.error = function () { return 'console desabilitado.' }
+        console.info = function () { return 'console desabilitado.' }
+    })()
+
 
     $('#ListPanel table tbody tr .td-options i[name="edit"]').click(() => {
         $('#EditModal').modal('show');
@@ -79,7 +91,7 @@ function Login() {
 
 
 /**
- * Registrar Hora 
+ * Registrar Hora.
  */
 function Register() {
 
@@ -106,12 +118,14 @@ function Register() {
     // Hora entrada:
     let inHour = parseInt(timeIn.split(':')[0]);
     let inMinute = parseInt(timeIn.split(':')[1]);
-    console.log('inHour, inMinute, year', inHour, inMinute);
+    console.log('inHour, inMinute', inHour, inMinute);
+    if (inHour >= 24 || inMinute >= 60) { return Notification.Error('Hora de entrada digitada não é válida.', 'Hora inválida'); }
 
     // Hora saída:
     let outHour = parseInt(timeOut.split(':')[0]);
     let outMinute = parseInt(timeOut.split(':')[1]);
     console.log('outHour, outMinute', outHour, outMinute);
+    if (outHour >= 24 || outMinute >= 60) { return Notification.Error('Hora de saída digitada não é válida.', 'Hora inválida'); }
 
     // Construtores de Data:
     let dateIn = new Date(year, month, day, inHour, inMinute, 0, 0);
@@ -136,7 +150,7 @@ function Register() {
 }
 
 /**
- * Editar Registro de Hora 
+ * Editar Registro de Hora.
  */
 function Edit() {
 
@@ -164,11 +178,13 @@ function Edit() {
     let inHour = parseInt(timeIn.split(':')[0]);
     let inMinute = parseInt(timeIn.split(':')[1]);
     console.log('inHour, inMinute, year', inHour, inMinute);
+    if (inHour >= 24 || inMinute >= 60) { return Notification.Error('Hora de entrada digitada não é válida.', 'Hora inválida'); }
 
     // Hora saída:
     let outHour = parseInt(timeOut.split(':')[0]);
     let outMinute = parseInt(timeOut.split(':')[1]);
     console.log('outHour, outMinute', outHour, outMinute);
+    if (outHour >= 24 || outMinute >= 60) { return Notification.Error('Hora de saída digitada não é válida.', 'Hora inválida'); }
 
     // Construtores de Data:
     let dateIn = new Date(year, month, day, inHour, inMinute, 0, 0);
